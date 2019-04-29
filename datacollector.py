@@ -16,10 +16,11 @@ gc = gspread.authorize(credentials)
 sheet = gc.open_by_key("YOUR SPREAD SHEET ID HERE")
 sh = sheet.sheet1
 reauthCounter = 0
+refreshInterval = 5
 while True:
-        time.sleep(5)
+        time.sleep(refreshInterval)
         reauthCounter += 1
-        if reauthCounter >= 3000:
+        if reauthCounter >= (60 * 60) / refreshInterval:
                 gc.login()
                 reauthCounter = 0
         response = requests.get(url)
